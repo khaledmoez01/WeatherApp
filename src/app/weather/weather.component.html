@@ -1,0 +1,86 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Changez de pays</button>
+
+
+<!-- les options  data-backdrop et data-keyboard empechent la disparition du modal 
+     en cliquant hors de la fenetre -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <!--form [formGroup]="weatherModalForm" (ngSubmit)="onSubmitForm()" !-->
+        <form [formGroup]="weatherModalForm">
+          <div class="form-group">
+            <label for="listVille">Choisissez un pays:</label>
+            <select id="listVille" class="form-control" formControlName="listVille">
+              <option *ngFor="let optionElt of weatherDatas" [value]="optionElt['codeIso']">
+                {{optionElt['country']}}
+              </option>
+            </select>
+          </div>
+          <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button!-->
+          <button type="button" class="btn btn-primary" (click)="onSubmitForm()" data-dismiss="modal" [disabled]="weatherModalForm.invalid">Rechercher</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--h1>{{weatherModalForm.value['listVille']}} </h1!-->
+<ngx-spinner></ngx-spinner>
+
+<div id="weather01" class="info" *ngIf="cityWeather">
+  <h1>{{cityWeather['city']['name']}}, {{cityWeather['city']['country']}}</h1>
+  <h3><strong> Longitude:</strong>{{cityWeather['city']['coord']['lon']}}</h3>
+  <h3><strong> Latitude:</strong>{{cityWeather['city']['coord']['lat']}}</h3>
+  <h3><strong> Population:</strong>{{cityWeather['city']['population']?.toLocaleString()}}</h3>
+  <!--
+    <h3><strong> Longitude:</strong>{{cityWeather['list'][0]['xxxxx'][0]['xxxxxx']}}</h3>
+    <h3>longitude:{{cityWeather.city.coord.lat}}</h3>
+  !-->
+
+
+
+  <div class="card-deck">
+
+    <!-- Card -->
+    <!--div class=" card-container" *ngFor="let elt of ' '.repeat(6).split(''); let k = index"!-->
+    <div class=" card-container" *ngFor="let eltIndex of tableauDesIndex; let k = index">
+      <div class="card-flip">
+        <!-- Card Front -->
+        <div class="card front">
+          <img [src]="'http://openweathermap.org/img/w/'+cityWeather.list[eltIndex].weather[0].icon + '.png'"
+            class="card-img-top img-fluid">
+          <div class="card-block">
+            <h6 class="card-title">{{daysOfTheWeek[daysTimestamp[k].getDay()]}} {{daysTimestamp[k] | date: 'shortDate'
+              }} {{daysTimestamp[k] | date: 'shortTime' }}</h6>
+            <p class="card-text text-center"><small class="text-muted">{{cityWeather['list'][eltIndex]['weather'][0]['description']}}</small></p>
+            <p class="card-text"><small class="text-muted"><b>Temp:</b> {{cityWeather['list'][eltIndex]['main']['temp']}}°C</small></p>
+            <p class="card-text"><small class="text-muted"><b>Humidity:</b> {{cityWeather['list'][eltIndex]['main']['humidity']}}%</small></p>
+            <p class="card-text"><small class="text-muted"><b>Wind speed:</b> {{cityWeather['list'][eltIndex]['wind']['speed']}}m/s</small></p>
+          </div>
+        </div>
+        <!-- End Card Front -->
+
+        <!-- Card Back -->
+        <div class="card back">
+          <div class="card-header">
+            Details
+          </div>
+          <div class="card-block">
+            <p class="card-text"><small class="text-muted"><b>Temp min:</b> {{cityWeather['list'][eltIndex]['main']['temp_min']}}°C</small></p>
+            <p class="card-text"><small class="text-muted"><b>Temp max:</b> {{cityWeather['list'][eltIndex]['main']['temp_max']}}°C</small></p>
+            <p class="card-text"><small class="text-muted"><b>Pressure:</b> {{cityWeather['list'][eltIndex]['main']['pressure']}}hPa</small></p>
+            <p class="card-text"><small class="text-muted"><b>Cloudiness:</b> {{cityWeather['list'][eltIndex]['clouds']['all']}}%</small></p>
+            <p class="card-text"><small class="text-muted"><b>Sea level:</b> {{cityWeather['list'][eltIndex]['main']['sea_level']}}hPa</small></p>
+            <p class="card-text"><small class="text-muted"><b>Ground level:</b> {{cityWeather['list'][eltIndex]['main']['grnd_level']}}hPa</small></p>
+            <p class="card-text"><small class="text-muted"><b>Wind degree:</b> {{cityWeather['list'][eltIndex]['wind']['deg']}}°</small></p>
+          </div>
+        </div>
+        <!-- End Card Back -->
+      </div>
+    </div>
+    <!-- End Card -->
+  </div>
+
+</div>

@@ -1,0 +1,20 @@
+<nav class="navbar navbar-light bg-light navbar-expand-md">
+
+    <ul class="nav navbar-nav">
+      <li routerLinkActive="active" class="nav-item">
+        <a routerLink="weather"  class="nav-link">Weather</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+        <li routerLinkActive="active" class="nav-item" *ngIf="!isAuth">
+          <a routerLink="auth/signup" class="nav-link">Cr&#xE9;er un compte</a>
+        </li>
+      <li routerLinkActive="active" class="nav-item" *ngIf="!isAuth" >
+        <a routerLink="auth/signin" class="nav-link">Connexion</a>
+      </li>
+      <li (click)="onSignOut()" *ngIf="isAuth" style="cursor: pointer;">
+        <a routerLink="auth/signin" class="nav-link">Déconnexion</a>
+      </li>
+    </ul>
+  
+</nav>

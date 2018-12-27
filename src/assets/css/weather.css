@@ -1,0 +1,55 @@
+#weather01 img.card-img-top
+{
+	width:50px !important;
+	height: 50px !important;
+	margin: 0 auto !important;
+}
+/*
+ .card-group > .card + .card {
+    border-left-width: 1px !important;
+}*/
+
+#weather01 .card-container {
+	perspective: 700px;
+}
+  
+#weather01 .card-flip,
+#weather01 .card-container {
+	transform-style: preserve-3d;
+	transition: all 0.7s ease;
+}
+  
+#weather01 .card-flip div {
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+}
+  
+#weather01 .back {
+	transform: rotateY(-180deg);
+}
+  
+#weather01 .card-container:hover .card-flip {
+	transform: rotateY(180deg);
+}
+
+#weather01 .card-flip {
+	display: grid;
+	grid-template: 1fr / 1fr;
+	grid-template-areas: "frontAndBack";
+	transform-style: preserve-3d;
+	transition: all 0.7s ease;
+}
+  
+#weather01 .front {
+	grid-area: frontAndBack;
+}
+  
+#weather01 .back {
+	grid-area: frontAndBack;
+	transform: rotateY(-180deg);
+}
+
+#weather01 .card-container {
+	display: grid;
+	perspective: 700px;
+}
